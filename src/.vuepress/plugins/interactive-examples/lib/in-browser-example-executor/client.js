@@ -1,7 +1,8 @@
 import PromiseWorker from "promise-worker";
-import ExecuteHandlebarsWorker from "!worker-loader!./execute-example-webworker";
+import ExecuteHandlebarsWorker from "worker-loader?inline&fallback!./worker";
+import debounce from "debounce-promise";
 
-const HANDLEBARS_EXECUTION_LIMIT_MILLIS = 2000;
+const HANDLEBARS_EXECUTION_LIMIT_MILLIS = 1000;
 
 let executeHandlebarsWorker;
 let promiseWorker;
@@ -12,6 +13,12 @@ recreateWebWorker();
  * Return the output of the example
  */
 export async function executeExample(example) {
+  return executeExampleDebounced(example);
+}
+
+const executeExampleDebounced = debounce(executeExampleNow, HANDLEBARS_EXECUTION_LIMIT_MILLIS, { leading: true });
+
+function executeExampleNow(example) {
   let promiseWorkerDone = false;
 
   let terminateStaleWorkerPromise = new Promise((resolve, reject) =>

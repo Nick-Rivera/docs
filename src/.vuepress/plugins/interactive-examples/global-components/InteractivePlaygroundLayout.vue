@@ -1,15 +1,14 @@
 <template>
   <div>
+    <div class="try-handlebars">
+      <workspace
+        :parsed-example="parsedExampleWithEnsuredPreparationScript"
+        :interactive="true"
+        :show-input-output="true"
+      />
+    </div>
     <Layout>
-      <template v-slot:page-top>
-        <div class="try-handlebars">
-          <workspace
-            :parsed-example="parsedExampleWithEnsuredPreparationScript"
-            :interactive="true"
-            :show-input-output="true"
-          />
-        </div>
-      </template>
+      <template v-slot:page-top> </template>
     </Layout>
   </div>
 </template>

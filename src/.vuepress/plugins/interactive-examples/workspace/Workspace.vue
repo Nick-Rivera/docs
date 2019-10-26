@@ -101,7 +101,7 @@ export default {
     };
   },
   mounted() {
-    import("./execute-example-webworker-client").then(module => {
+    import("../lib/in-browser-example-executor/client").then(module => {
       this.$executeExample = module.executeExample;
       this.loadSharedData();
     });
